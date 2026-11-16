@@ -1,0 +1,31 @@
+Voici les 6 commandes exactes pour gérer la mise en veille sous Fedora GNOME (système, écran, et globale). :
+
+1. Mise en veille du système (Suspend / Hibernation via systemd)
+
+Désactiver la veille système :
+
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+Activer la veille système :
+
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+2. Mise en veille de l'écran (GNOME session)
+
+Désactiver la veille de l'écran :
+
+gsettings set org.gnome.desktop.session idle-delay 0
+
+Activer la veille de l'écran (ex. 5 minutes / 300 secondes) :
+
+gsettings set org.gnome.desktop.session idle-delay 300
+
+3. Mise en veille complète (Système + Écran combinés)
+
+Couper complètement toute veille (système + écran) :
+
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target && gsettings set org.gnome.desktop.session idle-delay 0 && gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+
+Réactiver la veille complète (système + écran) :
+
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target && gsettings set org.gnome.desktop.session idle-delay 300 && gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'suspend'
